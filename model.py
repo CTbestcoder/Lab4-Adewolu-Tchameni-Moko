@@ -65,6 +65,7 @@ class Order:
         return sum((item.details.price for item in self.items))
 
 
+
 class OrderItem:
 
     # TODO: need to represent item state, not just ordered

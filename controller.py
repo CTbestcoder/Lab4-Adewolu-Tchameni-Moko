@@ -58,6 +58,9 @@ class OrderController(Controller):
         self.view.set_controller(TableController(self.view, self.restaurant, self.table))
         self.restaurant.notify_views()
 
+    def cancelled_item(self,item):
+        self.order.remove_item(item)
+
 
 class KitchenController(Controller):
 

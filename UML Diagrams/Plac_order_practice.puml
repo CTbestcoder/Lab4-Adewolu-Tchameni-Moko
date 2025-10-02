@@ -1,0 +1,61 @@
+@startuml
+
+
+title Place_Order\n**Design** Sequence Diagram\n
+
+actor Server as client
+participant ":view : ServerView" as svv
+participant ":controller: OrderController" as odc
+participant "tc: TableController" as tc
+participant "Order" as or
+participant "item : OrderItem" as it
+
+activate client
+
+
+note right of it #aqua
+
+returns a list of
+all items
+ordered == False
+end note
+
+
+client -> svv ++: (Place Orders)
+svv->odc++: update_Order
+odc->or++:place_new_order
+or->or: unordored = unordored_items()
+
+
+loop item : OrderItem in odc:
+    activate it
+    or->it:mark_as_ordered()
+
+    end
+
+
+odc-->tc**: (view, restaurant, table)
+deactivate it
+activate svv
+odc->svv--: set_controller(tc)
+
+svv->tc++:create_ui()
+
+
+tc->svv--:create_table_ui(table)
+activate svv
+deactivate svv
+
+
+
+
+
+deactivate
+
+
+
+deactivate
+
+
+
+@enduml
