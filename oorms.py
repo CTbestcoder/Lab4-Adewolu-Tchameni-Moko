@@ -121,7 +121,7 @@ class ServerView(RestaurantView):
 
                 def handler(_, cancelled_item=item):
                     #1
-                    #self.controller.cancel_items(item)
+                    self.controller.cancel_items(item)
                     pass
 
                 self._make_button('X', handler, size=CANCEL_SIZE, rect_style=CANCEL_STYLE,
@@ -147,11 +147,14 @@ class KitchenView(RestaurantView):
                     for item in order.items:
                         if item.has_been_ordered() and not item.has_been_served():
                             # TODO: compute button text based on current state of order
-                            button_text = 'label here'
+                            button_text = 'Start cooking'
 
                             def handler(_, order_item=item):
                                 # TODO: call appropriate method on handler
+                                self.controller.start_cooking()
                                 pass
+
+
 
                             self._make_button(button_text, handler,
                                               location=(K_LEFT, line * K_LINE_HEIGHT),

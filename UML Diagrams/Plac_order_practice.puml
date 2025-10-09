@@ -1,5 +1,5 @@
 @startuml
-skinparam sequenceParticipant underline
+!include style.puml
 
 title Place_Order\n**Design** Sequence Diagram\n
 
@@ -8,7 +8,7 @@ participant ":view : ServerView" as svv
 participant "view : KitchenView" as Kvv
 participant ":controller: OrderController" as odc
 participant "restaurant: Restaurant " as nv
-participant "tc: TableController" as tc
+participant "TableController" as tc
 participant "Order" as or
 participant "item : OrderItem" as it
 
@@ -26,7 +26,6 @@ end note
 client -> svv ++: (Place Orders)
 svv->odc++: update_Order
 odc->or++:place_new_order
-or->or: unordored = unordored_items()
 
 
 loop item : OrderItem in odc:
@@ -40,7 +39,7 @@ odc-->tc**: (view, restaurant, table)
 
 deactivate it
 activate svv
-odc->svv--: set_controller(tc)
+odc->svv--: set_controller(TableController)
 
 odc->nv**: notify_views()
 nv->svv: update()

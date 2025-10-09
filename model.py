@@ -1,5 +1,6 @@
 from constants import TABLES, MENU_ITEMS
 
+#class Orderstate:
 
 class Restaurant:
 
@@ -86,6 +87,8 @@ class OrderItem:
 
     def can_be_cancelled(self):
         # TODO: correct implementation based on item state
+
+
         return True
 
 

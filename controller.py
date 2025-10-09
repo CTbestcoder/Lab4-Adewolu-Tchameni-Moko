@@ -61,6 +61,7 @@ class OrderController(Controller):
 
     def cancel_items(self,item):
         self.order.remove_item(item)
+        self.restaurant.notify_views()
 
 
 class KitchenController(Controller):
@@ -69,3 +70,8 @@ class KitchenController(Controller):
         self.view.create_kitchen_order_ui()
 
     # TODO: implement a method to handle button presses on the KitchenView
+    def start_cooking(self):
+        button_text = 'Mark as Ready'
+        self.restaurant.notify_views()
+
+
