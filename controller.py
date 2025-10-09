@@ -44,6 +44,7 @@ class OrderController(Controller):
     def create_ui(self):
         self.view.create_order_ui(self.order)
 
+
     def add_item(self, menu_item):
         self.order.add_item(menu_item)
         self.view.update()
@@ -58,7 +59,7 @@ class OrderController(Controller):
         self.view.set_controller(TableController(self.view, self.restaurant, self.table))
         self.restaurant.notify_views()
 
-    def cancelled_item(self,item):
+    def cancel_items(self,item):
         self.order.remove_item(item)
 
 

@@ -1,11 +1,13 @@
 @startuml
-
+skinparam sequenceParticipant underline
 
 title Place_Order\n**Design** Sequence Diagram\n
 
 actor Server as client
 participant ":view : ServerView" as svv
+participant "view : KitchenView" as Kvv
 participant ":controller: OrderController" as odc
+participant "restaurant: Restaurant " as nv
 participant "tc: TableController" as tc
 participant "Order" as or
 participant "item : OrderItem" as it
@@ -35,14 +37,24 @@ loop item : OrderItem in odc:
 
 
 odc-->tc**: (view, restaurant, table)
+
 deactivate it
 activate svv
 odc->svv--: set_controller(tc)
 
-svv->tc++:create_ui()
+odc->nv**: notify_views()
+nv->svv: update()
+
+nv->Kvv: update()
+activate Kvv
+
+ svv->tc: create_ui()
+ Kvv->tc: create_ui()
+ tc->Kvv: create_kitchen_Order_ui()
+ tc->svv: create_table_ui()
 
 
-tc->svv--:create_table_ui(table)
+
 activate svv
 deactivate svv
 

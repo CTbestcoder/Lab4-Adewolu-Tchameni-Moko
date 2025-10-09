@@ -72,6 +72,7 @@ class OrderItem:
     def __init__(self, menu_item):
         self.details = menu_item
         self.__ordered = False
+        
 
     def mark_as_ordered(self):
         self.__ordered = True
