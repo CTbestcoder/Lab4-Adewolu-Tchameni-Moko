@@ -4,7 +4,7 @@ from constants import TABLES, MENU_ITEMS
 from enum import Enum
 
 class Orderstate(Enum):
-    DEFAULT_STATE = False
+    DEFAULT_STATE = 1
     PLACED = 2
     COOKING = 3
     READY = 4
@@ -88,15 +88,24 @@ class OrderItem:
         self.__ordered = Orderstate.PLACED
 
     def has_been_ordered(self):
-        return self.__ordered
+        if self.__ordered == Orderstate.PLACED:
+            return True
+        else:
+            return False
+
 
     def has_been_served(self):
-        self.__ordered  = Orderstate.SERVED
-        return self.__ordered
+        if self.__ordered == Orderstate.SERVED:
+            return True
+        else:
+            return False
+
 
     def can_be_cancelled(self):
-        self.__ordered = Orderstate.COOKING
-        return self.__ordered
+        if self.__ordered == Orderstate.PLACED or self.__ordered == Orderstate.DEFAULT_STATE:
+            return True
+        else:
+            return False
         # TODO: correct implementation based on item state
 
 

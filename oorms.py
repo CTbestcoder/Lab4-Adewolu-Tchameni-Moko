@@ -148,14 +148,16 @@ class KitchenView(RestaurantView):
                         if item.has_been_ordered() and not item.has_been_served():
                             # TODO: compute button text based on current state of order
                             button_text = 'Start cooking'
+                            # if item.:
+                            #     button_text =
+
 
                             def handler(_, order_item=item):
                                 # TODO: call appropriate method on handler
-                                self.controller.start_cooking()
+                                self.controller.up()
                                 pass
 
-                        if item.can_be_cancelled():
-                            button_text = 'Mark as ready'
+
 
 
 

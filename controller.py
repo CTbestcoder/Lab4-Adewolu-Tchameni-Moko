@@ -70,8 +70,7 @@ class KitchenController(Controller):
         self.view.create_kitchen_order_ui()
 
     # TODO: implement a method to handle button presses on the KitchenView
-    def start_cooking(self):
-        button_text = 'Mark as Ready'
+    def Update(self):
         self.restaurant.notify_views()
 
 
