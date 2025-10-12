@@ -1,6 +1,15 @@
-from constants import TABLES, MENU_ITEMS
+from unittest.mock import DEFAULT
 
-#class Orderstate:
+from constants import TABLES, MENU_ITEMS
+from enum import Enum
+
+class Orderstate(Enum):
+    DEFAULT_STATE = False
+    PLACED = 2
+    COOKING = 3
+    READY = 4
+    SERVED = 5
+
 
 class Restaurant:
 
@@ -72,24 +81,23 @@ class OrderItem:
     # TODO: need to represent item state, not just ordered
     def __init__(self, menu_item):
         self.details = menu_item
-        self.__ordered = False
+        self.__ordered = Orderstate.DEFAULT_STATE
         
 
     def mark_as_ordered(self):
-        self.__ordered = True
+        self.__ordered = Orderstate.PLACED
 
     def has_been_ordered(self):
         return self.__ordered
 
     def has_been_served(self):
-        # TODO: correct implementation based on item state
-        return False
+        self.__ordered  = Orderstate.SERVED
+        return self.__ordered
 
     def can_be_cancelled(self):
+        self.__ordered = Orderstate.COOKING
+        return self.__ordered
         # TODO: correct implementation based on item state
-
-
-        return True
 
 
 class MenuItem:

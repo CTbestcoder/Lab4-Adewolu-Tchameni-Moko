@@ -154,6 +154,11 @@ class KitchenView(RestaurantView):
                                 self.controller.start_cooking()
                                 pass
 
+                        if item.can_be_cancelled():
+                            button_text = 'Mark as ready'
+
+
+
 
 
                             self._make_button(button_text, handler,
