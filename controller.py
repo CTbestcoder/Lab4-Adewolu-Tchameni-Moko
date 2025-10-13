@@ -64,13 +64,30 @@ class OrderController(Controller):
         self.restaurant.notify_views()
 
 
+def change_state(item):
+    if item.has_been_ordered():
+        item.mark_as_cooking()
+    elif item.is_cooking():
+        item.mark_as_ready()
+    elif item.is_ready():
+        item.mark_as_served()
+
+
 class KitchenController(Controller):
+
+    def __init__(self, view, restaurant):
+        super().__init__(view, restaurant)
+
 
     def create_ui(self):
         self.view.create_kitchen_order_ui()
 
     # TODO: implement a method to handle button presses on the KitchenView
-    def Update(self):
+    def switch_state(self,item):
         self.restaurant.notify_views()
+        change_state(item)
+
+
+
 
 

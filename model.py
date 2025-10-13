@@ -75,6 +75,17 @@ class Order:
         return sum((item.details.price for item in self.items))
 
 
+    def change_state(self,item):
+        if item.has_been_ordered():
+            item.mark_as_cooking()
+        elif item.is_cooking():
+            item.mark_as_ready()
+        elif item.is_ready():
+            item.mark_as_served()
+
+
+
+
 
 class OrderItem:
 
@@ -87,11 +98,34 @@ class OrderItem:
     def mark_as_ordered(self):
         self.__ordered = Orderstate.PLACED
 
+    def mark_as_cooking(self):
+        self.__ordered = Orderstate.COOKING
+
+    def mark_as_ready(self):
+        self.__ordered = Orderstate.READY
+
+    def mark_as_served(self):
+        self.__ordered = Orderstate.SERVED
+
+
     def has_been_ordered(self):
         if self.__ordered == Orderstate.PLACED:
             return True
         else:
             return False
+
+    def is_cooking(self):
+        if self.__ordered == Orderstate.COOKING:
+            return True
+        else:
+            return False
+
+    def is_ready(self):
+        if self.__ordered == Orderstate.READY:
+            return True
+        else:
+            return False
+
 
 
     def has_been_served(self):
@@ -99,6 +133,11 @@ class OrderItem:
             return True
         else:
             return False
+
+    def return_state(self):
+        return self.__ordered
+
+
 
 
     def can_be_cancelled(self):

@@ -2,9 +2,10 @@ import math
 import tkinter as tk
 from abc import ABC
 
+
 from constants import *
 from controller import RestaurantController, KitchenController
-from model import Restaurant
+from model import Restaurant, Orderstate
 
 
 class RestaurantView(tk.Frame, ABC):
@@ -146,15 +147,19 @@ class KitchenView(RestaurantView):
                 for order in table.orders:
                     for item in order.items:
                         if item.has_been_ordered() and not item.has_been_served():
-                            # TODO: compute button text based on current state of order
-                            button_text = 'Start cooking'
-                            # if item.:
-                            #     button_text =
+                            # # TODO: compute button text based on current state of order
+                            button_text =" "
+
+                            if item.return_state() == Orderstate.PLACED:
+                                button_text = "Start Cooking"
+
+                            elif item.return_state() == Orderstate.COOKING:
+                                button_text = "Mark as ready"
 
 
                             def handler(_, order_item=item):
-                                # TODO: call appropriate method on handler
-                                self.controller.up()
+                                 #TODO: call appropriate method on handler
+                                self.controller.switch_state(item)
                                 pass
 
 
