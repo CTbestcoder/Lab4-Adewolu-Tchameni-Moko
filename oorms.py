@@ -122,8 +122,8 @@ class ServerView(RestaurantView):
 
                 def handler(_, cancelled_item=item):
                     #1
-                    self.controller.cancel_items(item)
-                    pass
+                    self.controller.cancel_items(cancelled_item)
+
 
                 self._make_button('X', handler, size=CANCEL_SIZE, rect_style=CANCEL_STYLE,
                                   location=(x0 - 2*(DOT_SIZE + DOT_MARGIN), y0))

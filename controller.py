@@ -68,23 +68,13 @@ class OrderController(Controller):
 
 class KitchenController(Controller):
 
-    def __init__(self, view, restaurant):
-        super().__init__(view, restaurant)
-
-
     def create_ui(self):
         self.view.create_kitchen_order_ui()
 
     # TODO: implement a method to handle button presses on the KitchenView
     def switch_state(self,item):
-        # Find the item in the list of orders through restuarant and table
-        for table in self.restaurant.tables:
-            for order in table.orders:
-                if item in order.items:
-                    order.change_state(item)
-                    self.restaurant.notify_views()
-                    return
-
+        item.change_state(item)
+        self.restaurant.notify_views()
 
 
 

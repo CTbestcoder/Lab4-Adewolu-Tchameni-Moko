@@ -75,15 +75,7 @@ class Order:
         return sum((item.details.price for item in self.items))
 
 
-    def change_state(self,item):
-        print(f"Before change: {item.current_state()}")
-        if item.has_been_ordered() and item.current_state() == Orderstate.PLACED:
-            item.mark_as_cooking()
-        elif item.is_cooking():
-            item.mark_as_ready()
-        elif item.is_ready():
-            item.mark_as_served()
-        print(f"After change: {item.current_state()}")
+
 
 
 
@@ -140,6 +132,17 @@ class OrderItem:
         return self.__ordered == Orderstate.PLACED or self.__ordered == Orderstate.DEFAULT_STATE
 
         # TODO: correct implementation based on item state
+
+    def change_state(self,item):
+        print(f"Before change: {item.current_state()}")
+        if item.current_state() == Orderstate.PLACED and item.has_been_ordered():
+            item.mark_as_cooking()
+        elif item.is_cooking():
+            item.mark_as_ready()
+        elif item.is_ready():
+            item.mark_as_served()
+        print(f"After change: {item.current_state()}")
+
 
 
 class MenuItem:
