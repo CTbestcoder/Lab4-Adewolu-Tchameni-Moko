@@ -64,13 +64,6 @@ class OrderController(Controller):
         self.restaurant.notify_views()
 
 
-def change_state(item):
-    if item.has_been_ordered():
-        item.mark_as_cooking()
-    elif item.is_cooking():
-        item.mark_as_ready()
-    elif item.is_ready():
-        item.mark_as_served()
 
 
 class KitchenController(Controller):
@@ -84,8 +77,14 @@ class KitchenController(Controller):
 
     # TODO: implement a method to handle button presses on the KitchenView
     def switch_state(self,item):
-        self.restaurant.notify_views()
-        change_state(item)
+        # Find the item in the list of orders through restuarant and table
+        for table in self.restaurant.tables:
+            for order in table.orders:
+                if item in order.items:
+                    order.change_state(item)
+                    self.restaurant.notify_views()
+                    return
+
 
 
 

@@ -148,23 +148,27 @@ class KitchenView(RestaurantView):
                     for item in order.items:
                         if item.has_been_ordered() and not item.has_been_served():
                             # # TODO: compute button text based on current state of order
-                            button_text =" "
-
-                            if item.return_state() == Orderstate.PLACED:
+                            ## Fixed it statement
+                            if item.current_state() == Orderstate.PLACED:
                                 button_text = "Start Cooking"
-
-                            elif item.return_state() == Orderstate.COOKING:
+                            elif item.current_state() == Orderstate.COOKING:
                                 button_text = "Mark as ready"
+                            elif item.current_state() == Orderstate.READY:
+                                button_text = "Mark as served"
+                            else:
+                                button_text = ""
+
 
 
                             def handler(_, order_item=item):
-                                 #TODO: call appropriate method on handler
-                                self.controller.switch_state(item)
-                                pass
+                                 #TODO: call appropriate method on handler, tells the button what to do when clicked
+                                 #the item represents button call for each item in the order, if we put item it only calls
+                                 #the last item in the list of order, cause it continues till loop is done.
+                                 #order_item captures each of the individual items in the order list.
 
+                                 #the controller calls for a case in the switch of each of the individual items.
 
-
-
+                                self.controller.switch_state(order_item)
 
 
 

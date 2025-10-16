@@ -76,12 +76,14 @@ class Order:
 
 
     def change_state(self,item):
-        if item.has_been_ordered():
+        print(f"Before change: {item.current_state()}")
+        if item.has_been_ordered() and item.current_state() == Orderstate.PLACED:
             item.mark_as_cooking()
         elif item.is_cooking():
             item.mark_as_ready()
         elif item.is_ready():
             item.mark_as_served()
+        print(f"After change: {item.current_state()}")
 
 
 
@@ -109,42 +111,34 @@ class OrderItem:
 
 
     def has_been_ordered(self):
-        if self.__ordered == Orderstate.PLACED:
-            return True
-        else:
-            return False
+            return self.__ordered in (
+                Orderstate.PLACED,
+                Orderstate.COOKING,
+                Orderstate.READY,
+                Orderstate.SERVED,
+            )
 
     def is_cooking(self):
-        if self.__ordered == Orderstate.COOKING:
-            return True
-        else:
-            return False
+        return self.__ordered == Orderstate.COOKING
 
     def is_ready(self):
-        if self.__ordered == Orderstate.READY:
-            return True
-        else:
-            return False
+        return self.__ordered == Orderstate.READY
 
 
 
     def has_been_served(self):
-        if self.__ordered == Orderstate.SERVED:
-            return True
-        else:
-            return False
+        return self.__ordered == Orderstate.SERVED
 
-    def return_state(self):
+
+    def current_state(self):
         return self.__ordered
 
 
 
 
     def can_be_cancelled(self):
-        if self.__ordered == Orderstate.PLACED or self.__ordered == Orderstate.DEFAULT_STATE:
-            return True
-        else:
-            return False
+        return self.__ordered == Orderstate.PLACED or self.__ordered == Orderstate.DEFAULT_STATE
+
         # TODO: correct implementation based on item state
 
 
